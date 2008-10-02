@@ -84,22 +84,26 @@ for(p= 0; p<COL/2; p++) {
 
 	  if(!(i%2)) {
            /* upper */
-	    matrix[CHANNELS*(s+1)-1 -k - CHANNELS/2][left]=cntr++;                // row, col
-            row= CHANNELS*(s+1)-1 -k - CHANNELS/2;
+            row= CHANNELS/2 -1 -k + CHANNELS*s;
+	    matrix[row][left]=cntr++;                // row, col
+
 	    //	    printf("%d %d\n", row, left);
-            matrix[CHANNELS*(s+1) -k -CHANNELS/2][right]=cntr++;
-            row =CHANNELS*(s+1) -k -CHANNELS/2;
+            row= CHANNELS/2  +k + CHANNELS*s ;
+            matrix[row][right]=cntr++;
+
 	    //	    printf("%d %d\n", row, right);
 
          }
          else {
 
            /* lower */
-           matrix[ROW/2+ CHANNELS*(s+1) -1 -k - CHANNELS/2 ][left]=cntr++;
-           row = ROW/2+ CHANNELS*(s+1) -1 -k - CHANNELS/2;
+           row= ROW/2+ CHANNELS/2 -1 -k + CHANNELS*s;
+           matrix[row ][left]=cntr++;
+
 	   //	    printf("%d %d\n", row, left);
-           matrix[ROW/2+ CHANNELS*(s+1) - k - CHANNELS/2][right]=cntr++;
-           row = ROW/2+ CHANNELS*(s+1) - k - CHANNELS/2;
+           row= ROW/2+ CHANNELS/2  +k + CHANNELS*s;
+           matrix[row][right]=cntr++;
+
 	   //	    printf("%d %d\n", row, right);
 
            s++;
