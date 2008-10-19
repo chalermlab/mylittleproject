@@ -11,5 +11,10 @@
 #
 # By default this script does nothing.
 
-. /opt/test/scull_load > /opt/test/failed
+. /opt/test/scull_load > /opt/test/failed.txt
+
+. /opt/test/set_env.sh
+
+/opt/test/test_scull > /opt/test/appl.txt
+
 exit 0
