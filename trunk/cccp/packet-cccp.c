@@ -1084,7 +1084,7 @@ proto_register_cccp(void)
 
   module_t *cccp_module;
 
-  proto_cccp = proto_register_protocol("C-RAD Communication Control Protocol",   /* name */
+  proto_cccp = proto_register_protocol("C Communication Control Protocol",   /* name */
 				       "Cccp", "cccp"); /* short name, abbrevation */
 
   proto_register_field_array(proto_cccp, hf, array_length(hf));
