@@ -90,6 +90,7 @@ static int hf_gbulk_mrepeat = -1;
 static gint ett_cccp = -1;
 static gint ett_pdu_hdr = -1;
 static gint ett_get = -1;
+static gint ett_get_configuration = -1;
 static gint ett_getnext = -1;
 static gint ett_search_range = -1;
 static gint ett_obj_ident = -1;
@@ -516,6 +517,25 @@ static void dissect_get_pdu(tvbuff_t *tvb, proto_tree *tree,int offset,int len, 
         }
 }
 
+static void dissect_get_configuration_pdu(tvbuff_t *tvb, proto_tree *tree,int offset,int len, char flags)
+{
+	proto_item* item;
+        proto_tree* subtree;
+
+	item = proto_tree_add_text(tree, tvb, offset, len, "GET_CONFIGURATION");
+	subtree = proto_item_add_subtree(item, ett_get_configuration);
+
+	if(flags & NON_DEFAULT_CONTEXT) {
+                /* show context */
+                offset += dissect_octet_string(tvb, subtree, offset, flags);
+        }
+
+	while(len >= offset) {
+                offset += dissect_search_range(tvb, subtree, offset, flags);
+		offset += 4; /* skip 0 end dword */
+        }
+}
+
 static void dissect_getbulk_pdu(tvbuff_t *tvb, proto_tree *tree,int offset,int len, char flags)
 {
 	proto_item* item;
@@ -921,8 +941,7 @@ static void dissect_cccp(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree)
 	    dissect_cccp_pdu);
 }
 
-void
-proto_register_cccp(void)
+void proto_register_cccp(void)
 {
   static hf_register_info hf[] = {
 
@@ -930,13 +949,13 @@ proto_register_cccp(void)
       { "Version        ", "cccp.version", FT_UINT8, BASE_DEC, NULL, 0x0,
         "header version", HFILL }},
 
-    { &hf_type,
-      { "Type           ", "cccp.type", FT_UINT8, BASE_DEC, VALS(type_values), 0x0,
-        "header type", HFILL }},
+    { &hf_cmd,
+      { "Cmd           ", "cccp.cmd", FT_UINT16, BASE_DEC, VALS(type_values), 0x0,
+        "header cmd", HFILL }},
 
-    { &hf_flags,
-      { "Flags          ", "cccp.flags", FT_UINT8, BASE_DEC, NULL, 0x0,
-        "header type", HFILL }},
+    { &hf_cmd_tag,
+      { "Cmd tag          ", "cccp.cmd_tag", FT_UINT32, BASE_DEC, NULL, 0x0,
+        "header cmd_tag", HFILL }},
 
     { &hf_session_id,
       { "sessionID      ", "cccp.session_id", FT_UINT32, BASE_DEC, NULL, 0x0,
@@ -1059,6 +1078,7 @@ proto_register_cccp(void)
 	&ett_cccp,
 	&ett_pdu_hdr,
 	&ett_get,
+	&ett_get_configuration,
 	&ett_getnext,
 	&ett_search_range,
 	&ett_obj_ident,
