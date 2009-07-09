@@ -128,12 +128,15 @@ for(p= 0; p<COL/2; p++) {
   f = fopen("unscramble.h","w") ;
   if(f) {
     //    printf("Saving file %d\n", cntr);
+    fprintf(f,"#ifndef _UNSCRAMBLE_H\n") ;
+    fprintf(f,"#define _UNSCRAMBLE_H\n") ;
     fprintf(f,"#define MAX_NO_OF_PIXELS %d\n", MAX) ;
     fprintf(f,"const unsigned int map[MAX_NO_OF_PIXELS]= {\n") ;
     for(i=0;i<MAX;i++) {
       fprintf(f,"%d,\n",*(mp+i)) ;
     }
     fprintf(f,"};\n") ;
+    fprintf(f,"#endif /*_UNSCRAMBLE_H */\n") ;
     fclose(f) ;
   }
 
