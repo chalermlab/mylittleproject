@@ -9,6 +9,8 @@
 
  The data is copied after the the struct ... that's why +1 ....
 
+implement search , sort and so on ...
+
 */
 
 
