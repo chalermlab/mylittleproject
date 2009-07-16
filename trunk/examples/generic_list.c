@@ -28,7 +28,8 @@ void ListDataDestructor( void *p ) {
   plist pl = (plist)p;
   // cast the data pointer
   plist_DATA pLD = (plist_DATA) ( pl + 1 );
-  delete pLD->p;
+  //  delete pLD->p;
+  free (pLD->p);
 }
 
 void TestList()
