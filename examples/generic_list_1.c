@@ -5,7 +5,7 @@
 #include "gen_list.h"
 /*
 
- g++ -g generic_list.c
+ g++ -g generic_list.c  works with gcc now ...
 
  The data is copied after the the struct ... that's why +1 ....
 
