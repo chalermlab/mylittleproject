@@ -17,7 +17,8 @@ implement search , sort and so on ...
 
 
 typedef struct ListDataStruct {
-        char  *p;
+  char  *p;
+  int femme;
 } list_DATA, *plist_DATA;
 
 
@@ -60,13 +61,15 @@ void TestList()
 
         d = new list_DATA;
         d->p = new char[24];
+        d->femme = 88;
         strcpy( d->p, "lost" );
         head = add_2_list( head, (void *) d, sizeof( plist_DATA ),ListDataDestructor );
         delete d;
 
 
 	k = (plist_DATA) malloc(sizeof(list_DATA));
-        k->p = (char *)malloc(sizeof( char[24]));
+        k->p = (char *) malloc(sizeof( char[24]));
+	k->femme= 6;
         strcpy( k->p, "lost" );
         head = add_2_list( head, (void *) k, sizeof( plist_DATA ),ListDataDestructor );
         free(k);
@@ -79,10 +82,20 @@ void TestList()
 
         nisse = (list_DATA*)  get_next_node(head); 
 	printf("%s\n", nisse->p);
-#endif
+
 	while ( NULL != (nisse = (list_DATA*)  get_next_node(head))) {
 	  	  printf("%s\n", nisse->p);
         }
+
+#endif
+
+
+
+	//        while (NULL != (nisse = (list_DATA*)  get_next_node(head))) {
+        while (NULL != (nisse = (list_DATA*)  get_current_node(head))) {
+	  printf("%s, and %d\n", nisse->p, nisse->femme);
+	  head = del_node_in_list(head);
+	}
 
         // free the list
         DeleteList( head );

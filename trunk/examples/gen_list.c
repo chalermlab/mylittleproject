@@ -32,7 +32,11 @@ void *p;
 
 void *get_current_node( plist head )
 {
-  return (void *) (head+1);
+
+  if (head != NULL)
+    return (void *) (head+1);
+  else
+    return NULL;
 }
 
 
@@ -57,6 +61,24 @@ void *get_next_node( plist head ) {
   return (void *) (h+1);
 
 }
+
+
+plist del_node_in_list(plist head) {
+
+  plist Next;
+
+  if( head )
+    {
+      Next = head->next;
+      head->DestructFunc( (void *) head );
+      free( head );
+      head = Next;
+    }
+
+  return head;
+
+}
+
 
 void DeleteList( plist head )
 {
