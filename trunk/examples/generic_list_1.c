@@ -3,6 +3,7 @@
 #include <string.h>
 //#include <iostream>
 #include "gen_list.h"
+#include "memwatch.h"
 /*
 
  g++ -g generic_list.c  works with gcc now ...
@@ -29,7 +30,7 @@ void ListDataDestructor( void *p ) {
   // cast the node pointer
   plist pl = (plist)p;
   // cast the data pointer
-  plist_DATA pLD = (plist_DATA) ( pl + 1 );
+  plist_DATA pLD = (plist_DATA) ( pl + 1 ); 
   //  delete pLD->p;
   //  free (pLD->p);
 }
