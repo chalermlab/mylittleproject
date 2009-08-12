@@ -64,8 +64,13 @@ int handle_request(int fd, int *connection) {
 
   if (*connection < 0)
     {
-    printf("NEJ: %s\n", strerror(errno));
+    printf("NO,why????: %s\n", strerror(errno));
     }
+  else {
+
+    printf("we got a new connection: %d\n", *connection);
+
+  }
 
 
 }
@@ -81,18 +86,18 @@ main() {
   /* Create a listening socket ... */
   listen = createService(4390,  SOCKBUFLEN, NODELAY);
 
-  /* Add a listen to that instance ... */
+  /* Add a listener to that instance ... */
   add(epfd, listen);
 
 #if 0
   events[0].data.fd = listen; /* return the fd to us later */
   events[0].events = EPOLLIN | EPOLLOUT;
-#endif
 
   ret = epoll_ctl (epfd, EPOLL_CTL_ADD, listen, events);
+#endif
 
   if (ret) {
-    printf("NEJ: %s\n", strerror(errno));
+    printf("NO !!: %s\n", strerror(errno));
   }
 
   /* Start polling ... */
