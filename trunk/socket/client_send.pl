@@ -105,7 +105,7 @@ return;
 
 
 # Main
- $sock = IO::Socket::INET->new(PeerAddr => '192.168.1.38',
+ $sock = IO::Socket::INET->new(PeerAddr => '127.0.0.1',
 			       PeerPort => '4390', 
                                  Proto    => 'tcp') or die "no socket"; 
 
