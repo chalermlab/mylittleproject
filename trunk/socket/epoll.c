@@ -1,3 +1,14 @@
+/*
+  TODO:
+
+  -How to handle serveral connections?
+  -Print them out
+  -Try different poll methods ..
+
+
+ */
+
+#include <string.h>
 #include "communication.h"
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -119,7 +130,7 @@ main() {
       /* Handle a new request from a client? */
       if (events[i].data.fd == listen) {
 	handle_request(events[i].data.fd, &connection);
-        printf ("event=%ld on fd=%d\n", events[i].events, events[i].data.fd);
+        printf ("event=%d on fd=%d\n", (int)events[i].events, events[i].data.fd);
 	add(epfd, connection);
       }
 
