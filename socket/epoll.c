@@ -25,9 +25,12 @@
 #include <unistd.h>
 
 
-#define MAX_EVENTS    1
+#define MAX_EVENTS    100
 #define SOCKBUFLEN       8192
 #define NODELAY             0
+
+#define MAXDATASIZE 100 // max number of bytes we can get at once 
+
 
 int create(int *epfd) {
 
@@ -52,6 +55,20 @@ int add(int epfd, int fd) {
 
   if (ret) {
     printf("NEJ: %s\n", strerror(errno));
+    return ret;
+  }
+  return 0;
+}
+
+
+int del(int epfd, int fd) {
+  struct epoll_event event;
+  int ret;
+
+  ret = epoll_ctl (epfd, EPOLL_CTL_DEL, fd, NULL);
+
+  if (ret) {
+    printf("del: %s\n", strerror(errno));
     return ret;
   }
   return 0;
@@ -85,6 +102,32 @@ int handle_request(int fd, int *connection) {
 
 
 }
+
+int get_mesg(int epfd, int sock) {
+
+  int res;
+  char buf[MAXDATASIZE];
+
+
+res = recv( sock, buf, MAXDATASIZE-1, 0);
+
+ if (res == 0) {
+   del(epfd, sock);
+   return 0;
+ }
+
+  if (res < 0) {
+    printf("get_msg:%s\n", strerror(errno));
+  }
+  else
+    printf("%s\n", buf);
+
+  return 0;
+
+
+}
+
+
 
 main() {
 
@@ -132,6 +175,10 @@ main() {
 	handle_request(events[i].data.fd, &connection);
         printf ("event=%d on fd=%d\n", (int)events[i].events, events[i].data.fd);
 	add(epfd, connection);
+      }
+
+      if (events[i].data.fd == connection) {
+	get_mesg(epfd,connection);
       }
 
     }
