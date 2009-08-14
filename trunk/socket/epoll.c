@@ -125,7 +125,6 @@ res = recv( sock, buf, MAXDATASIZE-1, 0);
 
   return 0;
 
-
 }
 
 
@@ -139,33 +138,22 @@ main() {
   create(&epfd);
 
   /* Create a listening socket ... */
-  listen = createService(4390,  SOCKBUFLEN, NODELAY);
+  listen = create_service(4390,  SOCKBUFLEN, NODELAY);
 
   /* Add a listener to that instance ... */
   add(epfd, listen);
 
-#if 0
-  events[0].data.fd = listen; /* return the fd to us later */
-  events[0].events = EPOLLIN | EPOLLOUT;
 
-  ret = epoll_ctl (epfd, EPOLL_CTL_ADD, listen, events);
-#endif
 
-  if (ret) {
-    printf("NO !!: %s\n", strerror(errno));
-  }
-
-  /* Start polling ... */
   while(true) {
 
+    /* Start polling ... */
     nr_events = epoll_wait (epfd, events, MAX_EVENTS, 0);
-
     if (nr_events < 0) {
       perror ("epoll_wait");
     }
 
     for (i = 0; i < nr_events; i++) {
-
       /*
        * We now can, per events[i].events, operate on
        * events[i].data.fd without blocking.
@@ -177,14 +165,11 @@ main() {
         printf ("event=%d on fd=%d\n", (int)events[i].events, events[i].data.fd);
 	add(epfd, connection);
       }
+
+      /* We have something to read */
       else {
 	get_mesg(epfd,events[i].data.fd);
       }
-
     }
-    
-
-
   }
-
 }

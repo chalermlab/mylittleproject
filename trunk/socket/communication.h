@@ -91,7 +91,7 @@ int  createConnection(int port, char *addr, int bufsize);
 
 int createUDPConnection(int port, char *addr, int bufsize);
 
-int  createService(unsigned short port, int bufsize, int nodelay);
+int  create_service(unsigned short port, int bufsize, int nodelay);
 
 int  createInternalConnection(char *addr);
 
