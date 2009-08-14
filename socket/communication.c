@@ -371,7 +371,7 @@ int createInternalConnection(char *addr)
 
 /*
 **===========================================================================
-** 8.1			createService()
+** 8.1			create_service()
 **===========================================================================
 ** Description: Create a TCP listening socket of server side
 **
@@ -384,7 +384,7 @@ int createInternalConnection(char *addr)
 **
 ** Globals:     
 */
-int createService(unsigned short port, int bufsize, int nodelay)
+int create_service(unsigned short port, int bufsize, int nodelay)
 {
 
   struct sockaddr_in serverSockAddr;
