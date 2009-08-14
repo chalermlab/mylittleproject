@@ -47,10 +47,11 @@ int create(int *epfd) {
 int add(int epfd, int fd) {
   struct epoll_event event;
   int ret;
+  int *ptr;
 
   event.data.fd = fd; /* return the fd to us later */
   event.events = EPOLLIN | EPOLLOUT;
-
+  //  event.data.ptr = ptr;       /* Put a cookie or somthing useful here */  
   ret = epoll_ctl (epfd, EPOLL_CTL_ADD, fd, &event);
 
   if (ret) {
@@ -176,9 +177,8 @@ main() {
         printf ("event=%d on fd=%d\n", (int)events[i].events, events[i].data.fd);
 	add(epfd, connection);
       }
-
-      if (events[i].data.fd == connection) {
-	get_mesg(epfd,connection);
+      else {
+	get_mesg(epfd,events[i].data.fd);
       }
 
     }

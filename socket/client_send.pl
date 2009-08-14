@@ -109,8 +109,8 @@ return;
 			       PeerPort => '4390', 
                                  Proto    => 'tcp') or die "no socket"; 
 
-#  print "Hej hopp \n";
+while(1) {
   $sock->send("Hej hopp!\n\0");
-
+}
 
 __END__
