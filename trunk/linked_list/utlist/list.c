@@ -2,8 +2,18 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "utlist.h"  /* include el */
-#include "list.h"
+//#include "list.h"
 #include "memwatch.h"
+
+
+#define BUFLEN 20
+
+typedef struct el {
+  char bname[BUFLEN];
+  int foo;
+  struct el *next, *prev;
+} el;
+
 
 el *head = NULL; /* important- initialize to NULL! */
 

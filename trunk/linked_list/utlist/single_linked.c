@@ -20,7 +20,7 @@
 
 int main(int argc, char *argv[]) {
 
-    char linebuf[BUFLEN];
+  //    char linebuf[BUFLEN];
 
     add_number(1);
     add_number(13);
