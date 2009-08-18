@@ -25,6 +25,12 @@ int main(int argc, char *argv[]) {
     add_number(1);
     add_number(13);
     add_number(8);
+    add_number(8);
+    get_head_and_del();
+    add_number(8);
+    add_number(91);
+    add_number(32);
+
     add_pre_number(19);
 
     get_head_and_del();
