@@ -97,7 +97,7 @@ void xl_stop(void) {
  
 static int __init timer_test_init(void)
 {
-  int ret;
+
 	PRINTK("timer module init\n");
 
        // add this somewhere else before using the completion thing
