@@ -11,6 +11,9 @@
 
 /*
  gcc -g -o test -DMEMWATCH -DMEMWATCH_STDIO  memwatch.c single_linked.c
+
+ gcc -g -o test -DMEMWATCH -DMEMWATCH_STDIO  memwatch.c single_linked.c list.c
+
 */
 
 
