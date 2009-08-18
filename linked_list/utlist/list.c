@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "utlist.h"  /* include el */
 #include "list.h"
-
+#include "memwatch.h"
 
 el *head = NULL; /* important- initialize to NULL! */
 
