@@ -1,12 +1,4 @@
 
-#define BUFLEN 20
-
-typedef struct el {
-  char bname[BUFLEN];
-  int foo;
-  struct el *next, *prev;
-} el;
-
 
 
 int add_number(int num);
