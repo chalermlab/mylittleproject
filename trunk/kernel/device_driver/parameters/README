@@ -1,0 +1,116 @@
+
+Pass parameters to a module
+---------------------------
+
+/sbin/insmod tets-driver.ko how_many=10 whom="Mom"
+
+ /sbin/rmmod tets-driver.ko 
+
+
+
+Att installera
+-------------
+kör:
+
+[root@mammoth test_driver]# make install
+su -c "cp -v tets-driver.ko /lib/modules/2.6.23.17-88.fc7/kernel/drivers/misc && /sbin/depmod -a"
+`tets-driver.ko' -> `/lib/modules/2.6.23.17-88.fc7/kernel/drivers/misc/tets-driver.ko'
+
+
+
+
+((((
+För att få med en rutin att laddas per automatik, flytta modulen (*.ko) till
+
+exvis:  /lib/modules/2.6.23.17-88.fc7/kernel/drivers/misc/
+
+och kör
+
+$depmod
+)))))
+
+
+Att verifiera
+-------------
+
+kolla med
+
+$dmesg
+
+sd 13:0:0:0: Attached scsi generic sg10 type 0
+usb 7-3.1.4: USB disconnect, address 21
+Godbye cruel Mom
+(0) Hello, Mom
+(1) Hello, Mom
+(2) Hello, Mom
+(3) Hello, Mom
+(4) Hello, Mom
+(5) Hello, Mom
+(6) Hello, Mom
+(7) Hello, Mom
+(8) Hello, Mom
+(9) Hello, Mom
+
+
+
+Lista moduler som kan laddas:
+-----------------------------
+
+
+ /sbin/modprobe -l | grep tets
+
+]# /sbin/modprobe -l | grep tets
+/lib/modules/2.6.23.17-88.fc7/kernel/drivers/misc/tets-driver.ko
+[root@mammoth test_driver]# 
+
+
+
+
+
+
+
+
+Parameterar/options lägger man här
+----------------------------------
+
+/etc/modprobe.conf
+
+
+# cat /etc/modprobe.conf
+alias eth0 e1000
+alias scsi_hostadapter ahci
+alias scsi_hostadapter1 usb-storage
+alias snd-card-0 snd-hda-intel
+options snd-card-0 index=0  
+options snd-hda-intel index=0  
+options tets-driver how_many=10 whom="Mom"   <<<<<<=====
+[root@mammoth test_driver]# 
+
+
+
+
+
+
+Då bör den dyka upp när man bootar maskinen ....
+
+
+man kan få fram uppgifter med modinfo
+-------------------------------------
+
+
+/sbin/modinfo  tets-driver
+filename:       /lib/modules/2.6.23.17-88.fc7/kernel/drivers/misc/tets-driver.ko
+license:        $LICENSE$
+author:         Fredrik Svärd (fredrik@dronten)
+description:    My kernel module
+depends:        
+vermagic:       2.6.23.17-88.fc7 SMP mod_unload 686 4KSTACKS 
+parm:           whom:charp
+parm:           how_many:int
+[root@mammoth test_driver]# 
+
+
+
+/sbin/modprobe tets_driver  # för att lägga in
+
+/sbin/modprobe -r tets_driver  # för att ta bort
