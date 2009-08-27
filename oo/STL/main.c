@@ -14,6 +14,8 @@ int main()
     {
         cout<<example[x]<<" ";    //Should output: 3 10 33
     }
+    cout << "\n";
+
     if(!example.empty())          //Checks if empty
         example.clear();          //Clears vector
     vector <int> another_vector;  //Creates another vector to store integers
@@ -27,5 +29,10 @@ int main()
     {
         cout<<example[y]<<" ";    //Should output 10 20
     }
+    cout << "\n";
+
+
+    int i = example.at(5);        // throws an exeption!
+
     return 0;
 }
