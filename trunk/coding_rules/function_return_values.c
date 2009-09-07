@@ -49,7 +49,7 @@ bool pci_dev_present() {
 main() {
 
 
-  /* Imperative or Action function */
+  /* _Imperative_ or _Action_ function */
   if(add_work()) {
     printf("We failed for add_work!\n");
   }
@@ -59,7 +59,7 @@ main() {
 
 
 
-    /* The name is a predicate true if success, false if failure!*/
+    /* The "PCI device present" is a _predicate_ true if success, false if failure!*/
     if (pci_dev_present()) {
       printf("pci_dev_present is present !!!\n");
     }
