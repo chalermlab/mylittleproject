@@ -5,6 +5,7 @@ using namespace std;
 
 class Observer {
 
+public:
   void Update() {};
 
 };
@@ -24,6 +25,7 @@ for(myIntVectorIterator = myIntVector->begin();
         myIntVectorIterator != myIntVector->end();
         myIntVectorIterator++)
 {
+  //  myIntVectorIterator->Update();
 #if 0
     cout<<*myIntVectorIterator<<" ";
     //Should output 1 4 8
