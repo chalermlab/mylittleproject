@@ -25,7 +25,7 @@ for(myIntVectorIterator = myIntVector->begin();
         myIntVectorIterator != myIntVector->end();
         myIntVectorIterator++)
 {
-  //  myIntVectorIterator->Update();
+  myIntVector->front()->Update();
 #if 0
     cout<<*myIntVectorIterator<<" ";
     //Should output 1 4 8
