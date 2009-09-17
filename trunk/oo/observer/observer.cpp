@@ -24,7 +24,7 @@ using namespace std;
        virtual void Notify();
 
    protected:
-    Subject();
+    Subject() {}
    private:
     vector <class Observer*> views; // 3. Coupled only to "interface"
    };
@@ -49,13 +49,12 @@ using namespace std;
  class ClockTimer : public Subject {
    public:
 
-   ClockTimer() ;   
+   ClockTimer() {};   
    virtual int GetHour();
    virtual int GetMinute();
    virtual int GetSecond();
    void Tick();
-   };
-
+ };
 
  void ClockTimer::Tick () {
        // update internal time-keeping state
@@ -109,7 +108,7 @@ using namespace std;
 
 main() {
 
-   ClockTimer* timer = new ClockTimer;
+  ClockTimer* timer = new ClockTimer();
 //   AnalogClock* analogClock = new AnalogClock(timer);
    DigitalClock* digitalClock = new DigitalClock(timer);
 
