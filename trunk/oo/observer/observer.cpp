@@ -1,33 +1,58 @@
-
+#include <stdio.h>
 #include <vector>
-#include <list>
+//#include <list>
+
+//
+// Working version of Observer design pattern!!!
+// Try to polish it!!
+//
+
+
+
 using namespace std;
 
- class Subject;
+class Subject;
     
-   class Observer {
-   public:
-     virtual ~Observer() {};
-       virtual void Update(Subject* theChangedSubject) = 0;
-   protected:
-     Observer() {};
-   };
+class Observer {
+public:
+  virtual ~Observer();
+  virtual void Update(Subject* theChangedSubject) = 0;
+protected:
+  Observer();
+};
+
+Observer::~Observer() {
+
+}
+
+Observer::Observer() {
+
+}
 
 
 //=======================================================================
-  class Subject {
-   public:
-       virtual ~Subject();
-    
-       virtual void Attach(Observer*);
-       virtual void Detach(Observer*);
-       virtual void Notify();
+class Subject {
 
-   protected:
-    Subject() {}
-   private:
-    vector <class Observer*> views; // 3. Coupled only to "interface"
-   };
+public:
+  virtual ~Subject();
+  virtual void Attach(Observer*);
+  virtual void Detach(Observer*);
+  virtual void Notify();
+
+protected:
+  Subject();
+private:
+  vector <class Observer*> views; // 3. Coupled only to "interface"
+};
+
+
+Subject::~Subject() {
+
+}
+
+Subject::Subject() {
+
+}
     
    void Subject::Attach (Observer* o) {
      views.push_back(o);
@@ -48,19 +73,29 @@ using namespace std;
 
  class ClockTimer : public Subject {
    public:
-
-   ClockTimer() {};   
+   ~ClockTimer();   
+   ClockTimer();   
+#if 0
    virtual int GetHour();
    virtual int GetMinute();
    virtual int GetSecond();
+#endif
    void Tick();
  };
+
+
+ClockTimer::~ClockTimer() {
+  ;
+}
+ClockTimer::ClockTimer() {
+  ;
+}
 
  void ClockTimer::Tick () {
        // update internal time-keeping state
        // ...
        Notify();
-   }
+ }
 
 
 //=======================================================================
@@ -92,14 +127,15 @@ using namespace std;
   void DigitalClock::Update (Subject* theChangedSubject) {
        if (theChangedSubject == _subject) {
            Draw();
+	   printf("got an update!!\n");
        }
    }
     
    void DigitalClock::Draw () {
        // get the new values from the subject
    
-       int hour = _subject->GetHour();
-       int minute = _subject->GetMinute();
+     //       int hour = _subject->GetHour();
+     //       int minute = _subject->GetMinute();
        // etc.
   
        // draw the digital clock
@@ -108,10 +144,12 @@ using namespace std;
 
 main() {
 
-  ClockTimer* timer = new ClockTimer();
+    ClockTimer* timer = new ClockTimer;
 //   AnalogClock* analogClock = new AnalogClock(timer);
-   DigitalClock* digitalClock = new DigitalClock(timer);
+   DigitalClock* digitalClock1 = new DigitalClock(timer);
+   DigitalClock* digitalClock2 = new DigitalClock(timer);
 
+   timer->Tick();
 
 
 }
