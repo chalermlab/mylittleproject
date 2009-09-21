@@ -15,12 +15,13 @@ class Subject;
     
 class Observer {
 public:
-  virtual ~Observer();
+  virtual ~Observer(){};
   virtual void Update(Subject* theChangedSubject) = 0;
 protected:
-  Observer();
+  Observer(){};
 };
 
+#if 0
 Observer::~Observer() {
 
 }
@@ -28,32 +29,23 @@ Observer::~Observer() {
 Observer::Observer() {
 
 }
-
+#endif
 
 //=======================================================================
 class Subject {
 
 public:
-  virtual ~Subject();
+  virtual ~Subject(){};
   virtual void Attach(Observer*);
   virtual void Detach(Observer*);
   virtual void Notify();
 
 protected:
-  Subject();
+  Subject(){};
 private:
   vector <class Observer*> views; // 3. Coupled only to "interface"
 };
 
-
-Subject::~Subject() {
-
-}
-
-Subject::Subject() {
-
-}
-    
    void Subject::Attach (Observer* o) {
      views.push_back(o);
    }
@@ -73,8 +65,8 @@ Subject::Subject() {
 
  class ClockTimer : public Subject {
    public:
-   ~ClockTimer();   
-   ClockTimer();   
+   ~ClockTimer(){};   
+   ClockTimer(){};   
 #if 0
    virtual int GetHour();
    virtual int GetMinute();
@@ -83,13 +75,6 @@ Subject::Subject() {
    void Tick();
  };
 
-
-ClockTimer::~ClockTimer() {
-  ;
-}
-ClockTimer::ClockTimer() {
-  ;
-}
 
  void ClockTimer::Tick () {
        // update internal time-keeping state
@@ -148,6 +133,8 @@ main() {
 //   AnalogClock* analogClock = new AnalogClock(timer);
    DigitalClock* digitalClock1 = new DigitalClock(timer);
    DigitalClock* digitalClock2 = new DigitalClock(timer);
+
+   timer->Tick();
 
    timer->Tick();
 
